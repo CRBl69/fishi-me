@@ -1,0 +1,59 @@
+<div class="top-nav" id="top-nav">
+    <a class="nav-item" href="/home">
+        <img class="nav-item" src="/res/fishy.svg" alt="Fishi" style="width: 4vh; height: 4vh;margin: .5vh">
+    </a>
+    <div class="dropdown">
+        <div id="bug-mdr" class="nav-item">
+            <input type="text" id="search" class="dropbtn" placeholder="search" autocomplete="off">
+            <div class="dropdown-content" id="searchDiv">
+            </div>
+        </div>
+        <a class="nav-item nav-link" href="/dm"<!-- UNREAD_DMS_STYLE --></a>DMs<!-- UNREAD_DMS --></a>
+        <a class="nav-item nav-link" href="/profile"><!-- PROFILE --></a>
+        <a class="nav-item nav-link" href="/php/logout.php">Log out</a>
+    </div>
+</div>
+<script>
+    const topNavElement = document.getElementById('top-nav');
+    lastX = 0;
+    // document.addEventListener('wheel', (e) => {
+    //     if(e.deltaY > 0){
+    //         topNavElement.classList.add('top-nav-hidden');
+    //     }else{
+    //         topNavElement.classList.remove('top-nav-hidden');
+    //     }
+    //     lastX = e.y
+    // })
+    let searchInput = document.getElementById("search");
+    let searchDiv = document.getElementById("searchDiv");
+    searchInput.addEventListener('keydown', (e) => {
+        if(e.key == 'Enter'){
+            let searchDiv = document.getElementById('searchDiv');
+            let selectedItem = searchDiv.firstChild.innerText;
+            location.href = '/profile/' + selectedItem
+        }
+    })
+    searchInput.addEventListener("focusout", () => {
+        setTimeout(() => {searchDiv.style.display = "none"}, 100);
+    })
+    searchInput.addEventListener("focus", () => {
+        searchDiv.style.display = "block";
+    })
+    searchInput.addEventListener("input", (event) => {
+        if(searchInput.value != ""){
+            fetch("<!-- HTTP -->://<!-- WEBSITE -->/php/get_users.php?search=" + searchInput.value).then(res => res.json()).then((res) => {
+                if(res.length > 0){
+                    searchDiv.innerHTML = "";
+                    for(const user of res){
+                        let element =  document.createElement("a");
+                        element.setAttribute("href", "<!-- HTTP -->://<!-- WEBSITE -->/profile/" + user.username);
+                        element.innerText = user.username;
+                        searchDiv.appendChild(element);
+                    }
+                }
+            });
+        }else{
+            searchDiv.innerHTML = "";
+        }
+    })
+</script>

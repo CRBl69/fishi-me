@@ -1,0 +1,157 @@
+
+
+/*
+    *********************
+        HTML ELEMENTS
+    *********************
+*/
+*{
+    color: var(--text);
+}
+body{
+    background: var(--bg);
+}
+a{
+    color: var(--text-accent);
+}
+a:visited{
+    color: var(--text-accent);
+}
+button{
+    border: none;
+    background: var(--accent);
+}
+input, textarea{
+    background: transparent;
+    border-radius: 5px;
+    background: var(--light);
+}
+hr{
+    background-color: var(--accent);
+}
+::placeholder{
+    color: var(--text-unimportant);
+}
+
+
+/*
+    ******************
+        SCROLLBARS
+    ******************
+*/
+
+.post, .comment-box, .chat-box
+{
+    scrollbar-color: var(--accent) transparent;
+}
+.post::-webkit-scrollbar, .comment-box::-webkit-scrollbar, .chat-box::-webkit-scrollbar{
+    background: transparent;
+}
+.post::-webkit-scrollbar-thumb, .comment-box::-webkit-scrollbar-thumb, .chat-box::-webkit-scrollbar-thumb{
+    background: var(--accent);
+}
+
+
+/*
+    ***************
+        CLASSES
+    ***************
+*/
+
+.box{
+    border: solid 1px var(--accent);
+    background: var(--bg);
+    box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.2);
+}
+.contact{
+    margin-bottom: -1px;
+    border: 1px solid var(--accent);
+}
+.date{
+    color: var(--text-unimportant);
+}
+
+/* NAV BAR */
+.top-nav{
+    background: var(--accent);
+    box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.2);
+}
+a.nav-item{
+    color: var(--dark);
+}
+img.nav-item{
+    filter: brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(0%) brightness(100%) contrast(100%);
+}
+.nav-link:hover{
+    background-color: var(--bg);
+}
+
+/* POST */
+.post-user{
+    color: var(--text-accent) !important;
+}
+.post-icon span{
+    color: var(--main) !important;
+}
+.post-icon:hover span{
+    background-color: #00000020;
+
+}
+.post-icon-click span{
+    background-color: #00000060 !important;
+}
+
+/* DMS */
+.msg-seen{
+    color: lightblue;
+}
+.msg-not-seen{
+    color: #424242;
+}
+
+.spoiler, .spoiler a{
+    background: var(--main);
+    color: var(--main);
+}
+.spoiler:hover, .spoiler:hover a{
+    color: inherit;
+}
+
+.popuptext{
+    background-color: var(--bg);
+    border: 1px solid var(--accent);
+    box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.2);
+}
+
+
+/* MAIN PAGE */
+
+.main-page-friends{
+    background-color: var(--light);
+}
+
+.user{
+    background-color: var(--light);
+}
+
+/* FROM STACK OVERFLOW FOR THE SERACH BAR*/
+.dropbtn:hover, .dropbtn:focus{
+    background-color: var(--bg);
+}
+.dropdown-content {
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    background-color: var(--bg);
+}
+.dropdown-content a {
+    color: var(--dark);
+}
+.dropdown-content a:hover {
+    background-color: var(--accent);
+}
+.dropbtn{
+    color: var(--dark);
+}
+
+.story-plus {
+    background-color: var(--light);
+}

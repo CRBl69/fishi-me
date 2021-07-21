@@ -1,0 +1,11 @@
+{
+  "name": "fishy_dm",
+  "version": "1.0.0",
+  "description": "A websocket server for Fishy DMs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "CRBl_",
+  "license": "MIT"
+}

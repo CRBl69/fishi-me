@@ -1,0 +1,14 @@
+/*
+    Original theme for Fishi.me
+*/
+
+:root{
+    --main: darkorange;
+    --accent: orange;
+    --dark: #222222;
+    --light: rgba(255, 140, 0, 0.5);
+    --bg: white;
+    --text: #222222;
+    --text-accent: rgb(57, 171, 209);
+    --text-unimportant: gray;
+}

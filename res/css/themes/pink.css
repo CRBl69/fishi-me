@@ -1,0 +1,14 @@
+/*
+    Pink theme for Fishi.me
+*/
+
+:root{
+    --main: pink;
+    --accent: lightpink;
+    --dark: #222222;
+    --light: rgba(255, 192, 203, 0.5);
+    --bg: white;
+    --text: #222222;
+    --text-accent: rgb(57, 171, 209);
+    --text-unimportant: gray;
+}

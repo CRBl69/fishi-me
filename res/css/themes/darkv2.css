@@ -1,0 +1,27 @@
+/*
+    Dark theme for Fishi.me
+*/
+
+:root{
+    --main: #777777;
+    --accent: #444444;
+    --dark: #dddddd;
+    --bg: #222222;
+    --light: rgba(255, 255, 255, 0.1);
+    --text: #dddddd;
+    --text-accent: lightblue;
+    --text-unimportant: #666666;
+}
+.post-icon:hover span{
+    background-color: #ffffff10 !important;
+
+}
+.post-icon-click span{
+    background-color: #ffffff90 !important;
+}
+.dropdown-content a:hover {
+    background-color: var(--main) !important;
+}
+img.nav-item{
+    filter: unset;
+}

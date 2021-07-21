@@ -1,0 +1,687 @@
+/*
+    Default stylesheet for Fishi.me
+
+    Contains everything style related, but not color related
+    Colors are separated in different theme files
+*/
+
+
+/*
+    *********************
+        HTML ELEMENTS
+    *********************
+*/
+
+* {
+    /* font-family: 'IBM Plex Mono', monospace; */
+    font-family: 'Roboto', monospace;
+    margin: 0px;
+    padding: 0px;
+}
+h2{
+    font-size: 20px;
+}
+hr{
+    border: none;
+    height: 1px;
+    margin: 15px 40px;
+}
+input, textarea{
+    padding: 5px;
+    outline: none;
+    border: none;
+    margin-bottom: 5px;
+}
+textarea{
+    resize: none;
+}
+button{
+    border-radius: 6.9px;
+    outline: none;
+    cursor: pointer;
+    padding: 5px;
+}
+code {
+    font-family: 'IBM Plex Mono';
+    font-size: 14px;
+    background-color: #00000030;
+    border-radius: 10px;
+    padding: 2px;
+}
+a {
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+/*
+    ******************
+        SCROLLBARS
+    ******************
+*/
+
+*{
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+*::-webkit-scrollbar {
+    display: none;
+}
+.post, .comment-box, .chat-box
+{
+    scrollbar-color: #444444 #222222;
+    scrollbar-width: thin;
+}
+.post::-webkit-scrollbar, .comment-box::-webkit-scrollbar, .chat-box::-webkit-scrollbar{
+    background: #222222;
+    width: 10px;
+    display: block;
+}
+.post::-webkit-scrollbar-thumb, .comment-box::-webkit-scrollbar-thumb, .chat-box::-webkit-scrollbar-thumb{
+    background: #444444;
+    display: block;
+}
+.post::-webkit-scrollbar-corner, .comment-box::-webkit-scrollbar-corner, .chat-box::-webkit-scrollbar-corner{
+    display: none;
+}
+
+
+/*
+    ***************
+        SPECIAL
+    ***************
+*/
+
+#home-container{
+    display: grid;
+    grid-template-columns: 1fr 35vw 1fr;
+    column-gap: 60px;
+}
+
+#middle-feed{
+    display: grid;
+    place-items: center;
+    width: max-content;
+    grid-row: 1;
+    grid-column: 2;
+    place-self: center;
+}
+
+@media only screen and (max-width: 1250px) {
+    #left{
+        display: none;
+    }
+    #middle-feed{
+        grid-row-start: 1 !important;
+        grid-row-end: 4 !important;
+        grid-column-start: 2 !important;
+        grid-column-end: 3 !important;
+    }
+    #middle {
+        grid-column-start: 1 !important;
+        grid-column-end: 3 !important;
+    }
+    .post {
+        max-width: 50vw !important;
+    }
+    .profile-user{
+        grid-row: 1 !important;
+        grid-column: 1 !important;
+        max-width: 35vw;
+        min-width: 40vh;
+    }
+    .post-from-container{
+        top: 46vh !important;
+        grid-row: 2 !important;
+        grid-column: 1 !important;
+    }
+    .post-vid {
+        width: 35vmax !important;
+        height: 19.6875vmax !important;
+    }
+    .profile-grid {
+        grid-template-columns: 1fr 2fr !important;
+    }
+}
+
+@media only screen and (max-width: 750px) {
+    #right{
+        display: none;
+    }
+    #middle{
+        grid-column-start: 0 !important;
+        grid-column-end: 4 !important;
+    }
+    .post {
+        max-width: 70vw !important;
+    }
+}
+
+@media only screen and (max-width: 950px) {
+    .profile-user{
+        position: unset !important;
+        grid-row: 1 !important;
+        grid-column: 2 !important;
+        max-width: 35vw;
+        min-width: 40vh;
+    }
+    .post-from-container{
+        position: unset !important;
+        grid-row: 2 !important;
+        grid-column: 2 !important;
+    }
+    #middle-feed{
+        grid-row: 3 !important;
+        grid-column-start: 1 !important;
+        grid-column-end: 4 !important;
+    }
+    #contenu{
+        height: 50px !important;
+    }
+    .profile-grid {
+        grid-template-columns: 1fr auto 1fr !important;
+    }
+    #middle-feed .post {
+        max-width: 70vw !important;
+    }
+}
+
+#example-post{
+    width: unset !important;
+    max-width: 300px !important;
+}
+
+#left{
+    grid-column: 1;
+}
+
+#middle{
+    display: grid;
+    place-items: center;
+    grid-column: 2;
+}
+
+#right{
+    position: sticky;
+    grid-column: 3;
+    top: 100px;
+    margin: 10px;
+}
+
+#comment{
+    margin-top: 30px
+}
+
+
+/*
+    ***************
+        CLASSES
+    ***************
+*/
+
+.sticky-element{
+    position: sticky;
+    top: 7vh;
+    height: max-content;
+}
+
+.space-between{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.center{
+    display: grid;
+    place-items: center;
+    height: 100vh;
+    width: 100vw;
+}
+.profile-grid{
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    grid-template-rows: auto auto auto;
+}
+.profile-user{
+    margin: 15px;
+    grid-row: 1;
+}
+.post-from-container{
+    grid-row: 1;
+    grid-column: 3;
+}
+.box{
+    margin: 10px 0;
+    border-radius: 6.9px;
+    padding: 6.9px;
+    height: min-content;
+    width: max-content;
+}
+.date{
+    font-size: 11px;
+    margin-left: 6.9px;
+    white-space: nowrap;
+}
+
+/* NAV BAR */
+.top-nav{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 5vh;
+    display: flex;
+    justify-content: space-between;
+    transition: 200ms;
+    z-index: 100;
+}
+.top-nav-hidden{
+    transition: 200ms;
+    top: -5vh;
+}
+.nav-item{
+    /* display: inline-block; */
+    height: 5vh;
+    text-decoration: none;
+}
+.nav-link{
+    padding: 0 15px;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+/* POST */
+.post{
+    border-radius: 0px;
+    margin: 0;
+    padding: 25px;
+    min-width: 38vh;
+    width: 100%;
+    max-width: 35vw;
+    min-height: min-content;
+}
+.post-form{
+    display: flex;
+    flex-direction: column;
+    padding: 10%;
+}
+.post-form *{
+    margin-bottom: 10px;
+}
+.post-title-username{
+    display: inline-flex;
+    align-items: baseline;
+    min-width: 0;
+}
+.post-title{
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.post-title a{
+    color: unset !important;
+}
+.post-user{
+    text-decoration: none !important;
+    font-size: 14px;
+    margin-left: 10px;
+}
+.post-icon {
+    border: none;
+    height: auto;
+    background: transparent !important;
+}
+.post-icon span{
+    padding: 3px;
+    cursor: pointer;
+    border-radius: 100%;
+    transition: 100ms;
+}
+.post-content{
+    margin-top: 9px;
+    max-height: 50vh;
+    word-wrap: anywhere;
+    /* overflow: auto; */
+}
+.post-date{
+    text-align: end;
+    float: right;
+    margin-top: 7px;
+}
+form > .post-date{
+    margin-top: 12px;
+}
+.post-date-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+.post-icons{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+.post-nb-likes{
+    align-self: center;
+}
+.post-img{
+    max-height: 30vh;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+}
+.post-vid{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    object-fit: cover;
+    width: 35vw;
+    height: 19.6875vw;
+}
+.post-page .post-img{
+    max-height: 50vh !important;
+}
+
+/* DMS */
+.chat-layout{
+    display: grid;
+    grid-template-columns: 1fr 2.42fr 1fr;
+    grid-template-rows: 1fr 1fr .2fr;
+    height: 90vh;
+}
+.chat-box{
+    padding: 5px;
+    grid-column: 2;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    overflow: auto;
+    width: 100%;
+    display: grid;
+}
+.chat-input{
+    width: 100%;
+    margin: auto auto 0 auto;
+    grid-row: 3;
+    grid-column: 2;
+    display: inline-flex;
+    justify-content: space-between;
+}
+.contact{
+    margin-left: 20px;
+    width: 7vw;
+    min-width: max-content;
+    transition:  150ms;
+}
+.contacts-div{
+    margin-top: 10px;
+}
+.contact:hover{
+    transition: 250ms;
+    margin-left: 50px;
+}
+.msg-box{
+    max-width: 50vh;
+}
+.msg-box-received{
+    border-top-left-radius: 0;
+}
+.msg-box-sent{
+    left: 100%;
+    position: relative;
+    transform: translate(-100%, 0);
+    border-top-right-radius: 0;
+}
+.msg-user{
+    font-size: 16px;
+    text-decoration: none;
+}
+.msg-content-seen{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+.msg-content{
+    word-break: break-word;
+    margin-top: 4.2px;
+    max-width: 50vh;
+    width: max-content;
+}
+.msg-seen{
+    margin-left: 10px;
+}
+.msg-not-seen{
+    margin-left: 10px;
+}
+.unique-dm-class{
+    text-decoration: none;
+}
+
+/* COMMENTS */
+.comment-box{
+    border: none;
+    max-height: 50vh;
+    overflow: auto;
+}
+.comment{
+    max-width: 95%;
+    border: none !important;
+    box-shadow: none !important;
+    margin: 5px 10px !important;
+}
+.comment-user-date{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: end;
+}
+.comment-content{
+    width: 100%;
+    max-width: 100%;
+}
+
+
+/* USER */
+.user{
+    border-radius: 10px;
+    padding: 15px;
+}
+.user-link{
+    text-decoration: none;
+}
+.profile-picture{
+    margin-left: 1rem;
+    border-radius: 100%;
+    box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.2);
+}
+.popuptext .user{
+    min-width: 342px;
+}
+
+/* SPOILER FOR MARKDOWN */
+.spoiler{
+    color: transparent;
+}
+.spoiler:hover{
+    color: inherit;
+    background: unset;
+}
+
+/* PROFILE PICTURE POPUP */
+.popup {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+.popup .popuptext {
+    display: none;
+    position: absolute;
+    z-index: 1000;
+    left: 125%;
+    top: 0
+}
+.popup .show {
+    display: block;
+}
+.popuptext{
+    border-radius: 1vh;
+}
+
+
+/* MAIN PAGE */
+
+.main-page-friends{
+    display: flex;
+    flex-direction: column;
+    float: right;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.main-page-profile{
+    margin-right: 15px;
+}
+
+.shadow{
+    position: fixed;
+    z-index: 10;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: #00000070;
+}
+
+.popup-image{
+    position: sticky;
+    top: 50vh;
+    z-index: 11;
+}
+
+.popup-image img{
+    max-width: 90vw;
+    max-height: 90vh;
+    position: absolute;
+    margin: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.edit-profile-form{
+    margin-top: 8vh;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
+.edit-profile-form input, .edit-profile-form textarea{
+    width: 50vw;
+    min-width: 40vh;
+}
+
+.edit-profile-form input{
+    min-width: 40vh;
+    width: 25vw;
+}
+
+.story {
+    height: 64px;
+    width: 64px;
+    border-radius: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    position: relative;
+}
+
+.story-content {
+    display: none;
+}
+.story-picture:hover + .story-content{
+    display: block;
+}
+.story-picture:hover {
+    z-index: 20;
+}
+
+.story-content img {
+    position: fixed;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 21;
+    left: 50%;
+    max-height: 90vh;
+    max-width: 90vh;
+}
+
+.stories {
+    padding: 10px 0;
+    -ms-overflow-style: unset;
+    scrollbar-width: unset;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+    max-width: 35vw;
+    overflow-y: hidden;
+    overflow-x: auto;
+}
+.story-plus {
+    cursor: pointer;
+}
+.story-picture {
+    height: 64px;
+    width: 64px;
+    border-radius: 100%;
+    position: absolute;
+    z-index: 2;
+}
+.stories::-webkit-scrollbar {
+    display: unset;
+}
+
+/* FROM STACK OVERFLOW FOR THE SERACH BAR */
+.dropdown {
+    float: left;
+    overflow: hidden;
+    margin: 0;
+    display: table;
+}
+.dropdown .dropbtn {
+    width: 10vw;
+    font-size: 16px;
+    border: none;
+    outline: none;
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0;
+}
+.dropbtn{
+    border-radius: 0;
+    height: 5vh;
+    text-align: center;
+    padding: 0;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    min-width: 160px;
+    z-index: 1;
+}
+.dropdown-content a {
+    float: none;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+#bug-mdr{
+    height: 5vh;
+    display: inline-block;
+}

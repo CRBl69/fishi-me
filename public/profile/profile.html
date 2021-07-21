@@ -1,0 +1,208 @@
+<form action="/php/add_post.php" method="POST" class="post-form" enctype="multipart/form-data">
+    <label for="title">Title</label>
+    <input type="text" id="title" name="title" placeholder="Hi..." autocomplete="off">
+    <label for="title">Content</label>
+    <textarea id="contenu" name="contenu" placeholder="Something interesting..." rows="6" maxlength="512"></textarea>
+    <input type="file" name="img">
+    <button type="submit">Post</button>
+</form>
+<div style="display: grid; place-items: center;">
+    <div id="example-post" class="box post" style="display: none">
+        <div class="space-between">
+            <div class="post-title-username">
+                <h2 class="post-title" id="example-post-title"><!-- TITLE --></h2>
+                <a class="post-user" href="/profile">
+                    @<!-- USERNAME -->
+                </a>
+            </div>
+            <!-- POST-LINK -->
+        </div>
+
+        <div class="post-content"">
+        <div id="example-post-content"><!-- TEXT --></div>
+        <span class="date post-date" id="example-post-date"><!-- DATE --></span>
+    </div>
+</div>
+<script>
+    document.addEventListener("keypress", (e) => {
+        let inputs = document.getElementsByTagName('input');
+        let inputIsFocused = false;
+        for(const input of inputs){
+            if(input === document.activeElement) inputIsFocused = true;
+        }
+        let textareas = document.getElementsByTagName('textarea');
+        for(const input of textareas){
+            if(input === document.activeElement) inputIsFocused = true;
+        }
+        if(inputIsFocused) return;
+        if(e.key == 't'){
+            document.getElementById('title').focus()
+        }else if(e.key == 'c'){
+            document.getElementById('contenu').focus()
+        }else if(e.key == 'e'){
+            location.href = '/edit_profile';
+        }
+    })
+    document.getElementById('contenu').addEventListener('keypress', (e)=>{
+        if(e.key == 'Enter' && e.shiftKey){
+            e.preventDefault();
+            document.getElementsByClassName("post-form")[0].submit(); 
+        }
+    })
+    let firstUpdate = true;
+    const titleInput = document.getElementById("title");
+    const contentInput = document.getElementById("contenu");
+    titleInput.addEventListener('input', update);
+    contentInput.addEventListener('input', update);
+
+    function padding(string, int = 2){
+        string = string.toString();
+        while(string.length < int){
+            string = "0" + string;
+        }
+        return string;
+    }
+
+    function update(){
+        if(firstUpdate){
+            firstUpdate = false;
+            const examplePostDate = document.getElementById("example-post-date");
+            let now = new Date();
+            examplePostDate.innerText = `${now.getFullYear()}-${padding(now.getMonth())}-${padding(now.getDay())} ${padding(now.getHours())}:${padding(now.getMinutes())}:${padding(now.getSeconds())}`;
+            setInterval(() => {
+                let now = new Date();
+                examplePostDate.innerText = `${now.getFullYear()}-${padding(now.getMonth())}-${padding(now.getDay())} ${padding(now.getHours())}:${padding(now.getMinutes())}:${padding(now.getSeconds())}`;
+            }, 1000);
+        }
+        const examplePostDiv = document.getElementById("example-post");
+        examplePostDiv.style.display = "block";
+        const examplePostTitle = document.getElementById("example-post-title");
+        const examplePostContent = document.getElementById("example-post-content");
+        examplePostContent.innerHTML = md(contentInput.value);
+        examplePostTitle.innerText = titleInput.value;
+        if(!examplePostTitle.innerText) examplePostTitle.innerText = "Title";
+        if(!examplePostContent.innerHTML) examplePostContent.innerText = "Content";
+        if(!contentInput.value && !titleInput.value){
+            examplePostDiv.style.display = "none";
+        }
+    }
+
+    function md(text){
+        text = text.replace("<", "&lt;");
+        text = text.replace(">", "&gt;");
+
+        text = parseMd(text);
+
+        // Transforming \\ in \ and removing \
+        text = text.replace(/\r\n|\r|\n/g, "<br>");
+        text = text.replace(/\\\\/g, "&#92;");
+        text = text.replace(/\\/g, "");
+
+
+        return text;
+    }
+
+    function parseMd(text, done = false){
+        let matches = text.match(/\[[^\]]+\]/g);
+        if(matches){
+            for(const match of matches){
+                let newMatch = "<input type=\"radio\" name=\"bite\">" + match.replace(/[\[\]]/g, '');
+                text = text.replace(match, newMatch);
+            }
+        }
+
+        // Code
+        let code = /(?<!\\)`((?:\\`|[^\`])*[^\\])`/g;
+
+        matches = text.match(code);
+
+        console.log(matches);
+
+        if (matches != null){
+            for(let match of matches){
+                let new_match = match.replace(/^`/, '<code>');
+                new_match = new_match.replace(/`$/, '</code>');
+                new_match = new_match.replace(/([*_~|()])/g, '\\$1');
+                text = text.replace(match, new_match);
+            }
+        }
+
+        // Bold
+        let gras = /(?<!\\)[*_]{2}((?:\\[*_]|\\[*_][*_]|[*_][^*_]|[^*_])*[^\\])[*_]{2}/g;
+
+        matches = text.match(gras);
+
+        if (matches != null){
+            for(let match of matches){
+                let new_match = match.replace(/^[*_][*_]/, "<b>");
+                new_match = new_match.replace(/[*_][*_]$/, "</b>");
+                text = text.replace(match, new_match);
+            }
+        }
+
+
+        // Italic
+        let italique = /(?<!\\)[*_]((?:\\[*_]|[^*_])*[^\\])[*_]/g;
+
+        matches = text.match(italique);
+        
+        if(matches != null){
+            for(let match of matches){
+                let new_match = match.replace(/^[*_]/, "<i>");
+                new_match = new_match.replace(/[*_]$/, "</i>");
+                text = text.replace(match, new_match);
+            }
+        }
+
+        // Strikethrough
+        let barre = /(?<!\\)~~((?:\\~|\\~~|~[^~]|[^~])*[^\\])~~/g;
+
+        matches = text.match(barre);
+        
+        if(matches != null){
+            for(let match of matches){
+                let new_match = match.replace(/^~~/, "<del>");
+                new_match = new_match.replace(/~~$/, "</del>");
+                text = text.replace(match, new_match);
+            }
+        }
+
+        // Spoiler
+        spoiler = /(?<!\\)\|{2}((?:\\[\|]|\\[\|][\|]|[\|][^\|]|[^\|])*[^\\])\|{2}/g;
+
+        matches = text.match(spoiler);
+        
+        if(matches != null){
+            for(let match of matches){
+                let new_match = match.replace(/^\|\|/, "<span class=\"spoiler\">");
+                new_match = new_match.replace(/\|\|$/, "</span>");
+                text = text.replace(match, new_match);
+            }
+        }
+
+        // Images
+        let img = /\(img:(https?:\/\/[^\"\)]+)\)/g;
+
+        matches = text.match(img);
+
+        if (matches != null){
+            for(let match of matches){
+                let new_match = `<img class="post-img" src="${match.replace(/\(img:/, '').replace(/\)$/, '')}" loading="lazy" onclick="openImage(event)">`;
+                text = text.replace(match, new_match);
+            }
+        }
+
+        // Videos
+        let vid = /\(vid:(https:\/\/www\.youtube\.com\/watch\?v=[^\"\)]+)\)/g;
+
+        matches = text.match(vid);
+
+        if (matches != null){
+            for(let match of matches){
+                let new_match = `<iframe style="width: 35vw; height: 19.6875vw" src="${match.replace(/\(vid:/, '').replace(/\)$/, '').replace(/\/watch\?v=/, '/embed/')}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+                text = text.replace(match, new_match);
+            }
+        }
+        return text;
+    }
+</script>
